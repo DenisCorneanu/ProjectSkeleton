@@ -26,6 +26,8 @@ public sealed class Board
     public int Rows { get; }
     public int Columns { get; }
 
+    public int FlagsRemaining => Math.Max(0, _mineCount - FlagCount);
+
     public Board(int rows, int columns, int mineCount)
     {
         Rows = rows;
@@ -129,7 +131,18 @@ public sealed class Board
             return;
         }
 
-        cell.IsFlagged = !cell.IsFlagged;
+        if (cell.IsFlagged)
+        {
+            cell.IsFlagged = false;
+            return;
+        }
+
+        if (FlagCount >= _mineCount)
+        {
+            return;
+        }
+
+        cell.IsFlagged = true;
     }
 
     public RevealResult Reveal(Position position)

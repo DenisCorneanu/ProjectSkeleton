@@ -9,6 +9,14 @@ public sealed unsafe class GameRenderer
     private const int BoardLeft = 60;
     private const int BoardTop = 60;
 
+    private const int RestartButtonX = 20;
+    private const int RestartButtonY = 18;
+    private const int RestartButtonWidth = 70;
+    private const int RestartButtonHeight = 30;
+
+    private const int CounterX = 260;
+    private const int CounterY = 16;
+
     private readonly Sdl _sdl;
     private readonly Renderer* _renderer;
 
@@ -23,6 +31,8 @@ public sealed unsafe class GameRenderer
         _sdl.SetRenderDrawColor(_renderer, 45, 45, 45, 255);
         _sdl.RenderClear(_renderer);
 
+        DrawRestartButton();
+        DrawFlagCounter(board);
         DrawBoard(board, status);
 
         _sdl.RenderPresent(_renderer);
@@ -56,6 +66,14 @@ public sealed unsafe class GameRenderer
 
         position = new Position(row, column);
         return true;
+    }
+
+    public bool IsRestartButtonClicked(int mouseX, int mouseY)
+    {
+        return mouseX >= RestartButtonX
+            && mouseX <= RestartButtonX + RestartButtonWidth
+            && mouseY >= RestartButtonY
+            && mouseY <= RestartButtonY + RestartButtonHeight;
     }
 
     private void DrawBoard(Board board, GameStatus status)
@@ -93,6 +111,101 @@ public sealed unsafe class GameRenderer
                     {
                         DrawFlag(x, y);
                     }
+                }
+            }
+        }
+    }
+
+    private void DrawRestartButton()
+    {
+        FillRect(RestartButtonX, RestartButtonY, RestartButtonWidth, RestartButtonHeight, 70, 70, 70);
+        DrawRect(RestartButtonX, RestartButtonY, RestartButtonWidth, RestartButtonHeight, 140, 140, 140);
+
+        DrawLetterR(RestartButtonX + 27, RestartButtonY + 6);
+    }
+
+    private void DrawFlagCounter(Board board)
+    {
+        FillRect(CounterX, CounterY, 95, 34, 60, 60, 60);
+        DrawRect(CounterX, CounterY, 95, 34, 130, 130, 130);
+
+        DrawSmallFlag(CounterX + 12, CounterY + 7);
+        DrawNumber(board.FlagsRemaining, CounterX + 45, CounterY + 7);
+    }
+
+    private void DrawSmallFlag(int x, int y)
+    {
+        var poleX = x + 6;
+
+        _sdl.SetRenderDrawColor(_renderer, 220, 220, 220, 255);
+        _sdl.RenderDrawLine(_renderer, poleX, y, poleX, y + 20);
+
+        FillRect(poleX + 1, y + 1, 14, 9, 190, 40, 40);
+        FillRect(poleX - 4, y + 20, 14, 4, 180, 180, 180);
+    }
+
+    private void DrawNumber(int number, int x, int y)
+    {
+        var text = number.ToString();
+
+        for (var i = 0; i < text.Length; i++)
+        {
+            var digit = text[i] - '0';
+            DrawCounterDigit(digit, x + i * 18, y);
+        }
+    }
+
+    private void DrawCounterDigit(int digit, int x, int y)
+    {
+        var pattern = GetCounterDigitPattern(digit);
+        const int blockSize = 4;
+
+        for (var row = 0; row < pattern.Length; row++)
+        {
+            for (var column = 0; column < pattern[row].Length; column++)
+            {
+                if (pattern[row][column] == '1')
+                {
+                    FillRect(
+                        x + column * blockSize,
+                        y + row * blockSize,
+                        blockSize - 1,
+                        blockSize - 1,
+                        230,
+                        230,
+                        230);
+                }
+            }
+        }
+    }
+
+    private void DrawLetterR(int x, int y)
+    {
+        var pattern = new[]
+        {
+            "110",
+            "101",
+            "110",
+            "101",
+            "101"
+        };
+
+        const int blockSize = 4;
+
+        for (var row = 0; row < pattern.Length; row++)
+        {
+            for (var column = 0; column < pattern[row].Length; column++)
+            {
+                if (pattern[row][column] == '1')
+                {
+                    FillRect(
+                        x + column * blockSize,
+                        y + row * blockSize,
+                        blockSize - 1,
+                        blockSize - 1,
+                        230,
+                        230,
+                        230);
                 }
             }
         }
@@ -189,6 +302,24 @@ public sealed unsafe class GameRenderer
             6 => new[] { "111", "100", "111", "101", "111" },
             7 => new[] { "111", "001", "010", "010", "010" },
             8 => new[] { "111", "101", "111", "101", "111" },
+            _ => new[] { "000", "000", "000", "000", "000" }
+        };
+    }
+
+    private static string[] GetCounterDigitPattern(int digit)
+    {
+        return digit switch
+        {
+            0 => new[] { "111", "101", "101", "101", "111" },
+            1 => new[] { "010", "110", "010", "010", "111" },
+            2 => new[] { "111", "001", "111", "100", "111" },
+            3 => new[] { "111", "001", "111", "001", "111" },
+            4 => new[] { "101", "101", "111", "001", "001" },
+            5 => new[] { "111", "100", "111", "001", "111" },
+            6 => new[] { "111", "100", "111", "101", "111" },
+            7 => new[] { "111", "001", "010", "010", "010" },
+            8 => new[] { "111", "101", "111", "101", "111" },
+            9 => new[] { "111", "101", "111", "001", "111" },
             _ => new[] { "000", "000", "000", "000", "000" }
         };
     }
