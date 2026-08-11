@@ -1,17 +1,15 @@
-# Utilizarea AI
+# AI Usage
 
-## Tool-uri folosite
+AI tools were used as support during the development of this project.
 
-- ChatGPT, GPT-5.5 Thinking, 
-- Claude Ai, Sonnet 4.6 Medium
+I used ChatGPT and Claude mainly to discuss implementation ideas, understand errors and improve the organization of the code.
 
-## Cum am folosit AI
+The areas where I received the most help were:
 
-Am folosit ChatGPT, respectiv Claude Ai ca asistent de discutie in timpul lucrului la proiect. M-a ajutat sa inteleg structura si dificultatea proiectului inainte sa ma apuc, sa discut idei de joc, sa aleg directia finala, sa inteleg erorile aparute si sa organizez codul in clase mai mici.
+- converting SDL mouse coordinates into board positions
+- organizing parts of the logic in `Board.cs`
+- reveal logic
+- calculating neighboring mines
+- revealing connected empty areas
 
-Proiectul a fost realizat folosind skeleton-ul SDL si conceptele lucrate la laboratoare ca reper principal. Sugestiile primite au fost verificate, ajustate si testate in timpul dezvoltarii.
-
-## Fisiere sau regiuni complet generate de AI
-
-Am primit cel mai mult ajutor la transformarea click-urilor SDL in pozitii de pe tabla de joc si la organizarea logicii din `Board.cs`, in special pentru reveal, calcularea minelor vecine si descoperirea automata a zonelor goale.
-
+The project was built using the SDL laboratory skeleton and the concepts covered during the course. Suggestions received from AI tools were reviewed, adjusted and tested during development.
