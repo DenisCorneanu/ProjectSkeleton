@@ -1,57 +1,65 @@
 # Minefield Explorer
 
-Minefield Explorer este un joc simplu de tip Minesweeper, realizat in C# si .NET folosind SDL.
+Minefield Explorer is a simple Minesweeper-style game built in C# and .NET using SDL.
 
-Jucatorul trebuie sa descopere celulele sigure si sa evite minele ascunse. Click stanga descopera o celula, iar click dreapta pune sau scoate un steag. Jocul se termina atunci cand jucatorul descopera o mina sau cand toate celulele sigure au fost descoperite.
+The goal is to reveal all safe cells while avoiding the hidden mines. The game also includes flags, scoring and persistent high scores.
 
-Jocul are scor si salveaza cele mai bune scoruri intre rulari.
+## Features
 
-## Cum se ruleaza
+- 10x10 game board
+- 15 randomly placed mines
+- Left click to reveal cells
+- Right click to place or remove flags
+- Automatic reveal of connected empty areas
+- Win and lose states
+- Restart option
+- Score system
+- High scores saved between runs
 
+## Controls
 
-dotnet run 
+- **Left Click** - reveal a cell
+- **Right Click** - place or remove a flag
+- **R** - restart the game
+- **Escape / Q** - exit
 
+The restart button in the top-left corner can also be clicked.
 
-## Controale
-* Click stanga: descopera o celula
-* Click dreapta: pune sau scoate un steag
-* R: restart
-* Escape sau Q: iesire din joc
-* Butonul R din stanga sus poate fi apasat pentru restart
+## How to Run
 
+Requirements:
 
-## Reguli
+- .NET
 
-Tabla are dimensiunea 10x10 si contine 15 mine ascunse.
+Run the project with:
 
-Jucatorul castiga daca descopera toate celulele care nu contin mine.
-Jucatorul pierde daca descopera o mina.
+```bash
+dotnet run
+```
 
-Numarul de steaguri este limitat la numarul de mine, deci pot fi puse maximum 15 steaguri.
+## Project Structure
 
-## Scor si high-score
+The project is split into a few main parts:
 
-Scorul creste atunci cand sunt descoperite celule sigure.
+- `Board/` - Minesweeper board logic, mines, cells and reveal logic
+- `Game/` - main game loop, input handling and game state
+- `Rendering/` - SDL rendering for the board and interface
+- `Persistence/` - saving and loading high scores
+- `Program.cs` - application entry point
 
-Cele mai bune scoruri sunt salvate in fisierul highscores.json si sunt incarcate automat cand jocul porneste din nou.
+## C# / .NET Concepts Used
 
-## Structura proiectului
+The project uses several concepts I practiced during the course:
 
-Proiectul foloseste skeleton-ul SDL primit la laborator. Codul este impartit in cateva clase simple:
+- classes and enums
+- record structs
+- LINQ
+- async/await
+- `IDisposable`
+- JSON serialization
 
-Program.cs porneste jocul.
-Engine.cs controleaza loop-ul principal, input-ul, statusul jocului, restartul si actualizarea scorului.
-Board.cs contine logica tablei de Minesweeper.
-GameRenderer.cs deseneaza tabla, minele, steagurile, numerele, butonul de restart si counter-ul de steaguri.
-HighScoreService.cs salveaza si incarca scorurile folosind JSON.
+## About
 
-## Functionalitati C#/.NET folosite
+This project was created as part of a .NET university assignment.
 
-In proiect sunt folosite mai multe concepte lucrate pe parcursul laboratoarelor:
-
-* clase si enum-uri pentru organizarea logicii
-* record struct pentru pozitiile de pe tabla
-* LINQ pentru gestionarea scorurilor
-* async/await pentru salvarea si incarcarea scorurilor
-* IDisposable pentru eliberarea resurselor SDL
-* serializare JSON pentru high-score
+The SDL starter skeleton was provided during the laboratory, and I used it to build the Minesweeper game logic, rendering, scoring and persistence system.
