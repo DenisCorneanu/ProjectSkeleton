@@ -13,7 +13,7 @@ The goal is to reveal all safe cells while avoiding the hidden mines. The game a
   </tr>
   <tr>
     <td><img src="docs/screenshots/gameplay.png" width="420"></td>
-    <td><img src="docs/screenshots/game-over.png" width="420"></td>
+    <td><img src="docs/screenshots/loss.png" width="420"></td>
   </tr>
 </table>
 
