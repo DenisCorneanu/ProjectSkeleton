@@ -4,6 +4,19 @@ Minefield Explorer is a simple Minesweeper-style game built in C# and .NET using
 
 The goal is to reveal all safe cells while avoiding the hidden mines. The game also includes flags, scoring and persistent high scores.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>Gameplay</b></td>
+    <td align="center"><b>Game Over</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/gameplay.png" width="420"></td>
+    <td><img src="docs/screenshots/game-over.png" width="420"></td>
+  </tr>
+</table>
+
 ## Features
 
 - 10x10 game board
